@@ -7,10 +7,9 @@ CHAT_ID="-831292086"
 URL="https://api.telegram.org/bot$TOKEN/sendMessage"
 
 # inisialisasi file log
-log_flask="PantauFlask/flask.log"
+log_flask="PantauFlask/flask_all.log"
 log_checked="Pantau404/flask_checked.log"
 log_unchecked="Pantau404/temp.log"
-log_telegram="Pantau404/telegram.log"
 
 # fungsi yang akan dijalankan di script kel1_start.sh
 pantau404(){
@@ -30,7 +29,7 @@ pantau404(){
         # kirim notifikasi telegram, catat juga di log telegram
         curl -s -X POST $URL \
             -d "chat_id=$CHAT_ID" \
-            -d "text=$MESSAGE" >> $log_telegram
+            -d "text=$MESSAGE" >> telegram.log
     fi
 
     # pindahkan isi log temp ke log flask_checked

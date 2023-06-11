@@ -7,9 +7,8 @@ CHAT_ID="-831292086"
 URL="https://api.telegram.org/bot$TOKEN/sendMessage"
 
 # inisialisasi file log
-log_flask_all="PantauFlask/flask.log"
-log_flask_down="PantauFlask/flaskDown.log"
-log_telegram="PantauFlask/telegram.log"
+log_flask_all="PantauFlask/flask_all.log"
+log_flask_down="PantauFlask/flask_down.log"
 
 # fungsi yang akan dijalankan di script kel1_start.sh
 pantauFlask(){
@@ -26,8 +25,8 @@ pantauFlask(){
         # kirim notifikasi telegram, catat juga di log telegram
         curl -s -X POST $URL \
             -d "chat_id=$CHAT_ID" \
-            -d "text=$MESSAGE" >> $log_telegram
-        echo "" >> $log_telegram
+            -d "text=$MESSAGE" >> telegram.log
+        echo "" >> telegram.log
 
         #coba run flask secara otomatis
         python3 Flask/sample.py >> $log_flask_all 2>&1 &
@@ -40,7 +39,7 @@ pantauFlask(){
         fi
         curl -s -X POST $URL \
              -d "chat_id=$CHAT_ID" \
-             -d "text=$MESSAGE" >> $log_telegram
-        echo "" >> $log_telegram
+             -d "text=$MESSAGE" >> telegram.log
+        echo "" >> telegram.log
     fi
 }

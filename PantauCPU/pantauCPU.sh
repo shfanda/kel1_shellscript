@@ -9,7 +9,6 @@ URL="https://api.telegram.org/bot$TOKEN/sendMessage"
 # inisialisasi file log
 log_CPU_all="PantauCPU/pantauCPU.log"
 log_CPU_highload=PantauCPU/highloadCPU.log 
-log_telegram="PantauCPU/telegram.log"
 
 # fungsi yang akan dijalankan di script kel1_start.sh
 pantauCPU(){
@@ -21,7 +20,7 @@ pantauCPU(){
     cpu_usage=$(echo $top_val | awk '{print int($2 + $4)}')
 
     # jika penggunaan CPU lebih dari 90, maka kirim notifikasi
-    if [ $cpu_usage -ge 90 ]; then
+    if [ $cpu_usage -ge 20 ]; then
 
         # catat penggunaan CPU lebih dari 90 di log highloadCPU
         echo "[$(date +"%d/%b/%Y %H:%M:%S")] $top_val" >> $log_CPU_highload
@@ -32,8 +31,8 @@ pantauCPU(){
         # kirim notifikasi telegram, catat juga di log telegram
         curl -s -X POST $URL \
             -d "chat_id=$CHAT_ID" \
-            -d "text=$MESSAGE" >> $log_telegram
-        echo "" >> $log_telegram
+            -d "text=$MESSAGE" >> telegram.log
+        echo "" >> telegram.log
     fi
 
     # catat semua penggunaan CPU di log pantauCPU
