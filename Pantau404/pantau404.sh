@@ -9,7 +9,8 @@ URL="https://api.telegram.org/bot$TOKEN/sendMessage"
 # inisialisasi file log
 log_flask="PantauFlask/flask_all.log"
 log_checked="Pantau404/flask_checked.log"
-log_unchecked="Pantau404/temp.log"
+log_unchecked="Pantau404/flask_unchecked.log"
+log_404="Pantau404/flask_404.log"
 
 # fungsi yang akan dijalankan di script kel1_start.sh
 pantau404(){
@@ -19,6 +20,8 @@ pantau404(){
 
     # ambil error 404 dan URL-nya
     result_error=$(grep " 404 " "$log_unchecked" | awk '{print $7}')
+
+    cat "$log_unchecked" | grep " 404 " >> "$log_404"
 
     # jika ada error, maka kirim notifikasi
     if [ -n "$result_error" ]; then
@@ -34,4 +37,7 @@ pantau404(){
 
     # pindahkan isi log temp ke log flask_checked
     cat $log_unchecked >> $log_checked
+
+    # hapus log flask_unchecked
+    rm $log_unchecked
 }

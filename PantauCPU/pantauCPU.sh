@@ -19,10 +19,10 @@ pantauCPU(){
     # total penggunaan CPU = penggunaan oleh user + penggunaan oleh sistem
     cpu_usage=$(echo $top_val | awk '{print int($2 + $4)}')
 
-    # jika penggunaan CPU lebih dari 90, maka kirim notifikasi
-    if [ $cpu_usage -ge 20 ]; then
+    # jika penggunaan CPU lebih dari 50, maka kirim notifikasi
+    if [ $cpu_usage -ge 50 ]; then
 
-        # catat penggunaan CPU lebih dari 90 di log highloadCPU
+        # catat penggunaan CPU lebih dari 50 di log highloadCPU
         echo "[$(date +"%d/%b/%Y %H:%M:%S")] $top_val" >> $log_CPU_highload
 
         # pesan yang akan dikirim
