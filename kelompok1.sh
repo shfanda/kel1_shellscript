@@ -21,5 +21,5 @@ while [ true ]; do
     echo "[$(date +"%d/%b/%Y %H:%M:%S")] Monitoring berjalan" >> kel1.log
 
     # delay 60 detik
-    sleep 5
+    sleep 60
 done
